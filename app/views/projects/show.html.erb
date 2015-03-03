@@ -1,2 +1,29 @@
 <h1><%= @project.title %></h1>
 
+<!-- ここから関連付け後に記載した処理 -->
+<ul>
+<% @project.tasks.each do |task| %>
+  <li>
+    <%= check_box_tag '', '', task.done, {'data-id' => task.id, 'data-project_id' => task.project_id} %>
+    <%= task.title %>
+    <%= link_to "削除", project_task_path(task.project_id, task.id), method: :delete, data: { confirm: "are you sure?"} %>
+  </li>
+<% end %>
+  <li>
+    <%= form_for [@project, @project.tasks.build] do |f| %>
+    <%= f.text_field :title %>
+    <% if false %>ここからコメント
+    <%= @project.tasks.errors.inspect %><br>
+    ここまでコメント<% end %>
+    <%= f.submit %>
+    <% end %>
+  </li>
+</ul>
+
+<script>
+$(function() {
+  $("input[type=checkbox]").click(function() {
+    $.post('/projects/'+$(this).data('project_id')+'/tasks/'+$(this).data('id')+'/toggle');
+  });
+});
+</script>
