@@ -1,0 +1,36 @@
+<h1>Editing Item</h1>
+
+<% if false %>ここからコメント
+<%= render 'form' %>
+ここまでコメント<% end %>
+<%= form_for @item, url: item_group_item_path, html: { method: :put } do |f| %>
+<% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :item_group_id %><br>
+    <%= f.collection_select :item_group_id, ItemGroup.all, :id, :name %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br>
+    <%= f.number_field :value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'アイテムグループ詳細に戻る', item_group_path(@item.item_group_id) %>

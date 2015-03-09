@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @item_group.name %>
+</p>
+
+<%= link_to 'Edit', edit_item_group_path(@item_group) %> |
+<%= link_to 'Back', item_groups_path %>
+
+
+<p><%= link_to 'APP新規作成', new_item_group_item_path(@item_group.id) %></p>
+
+<table class="table table-bordered table-hover">
+  <thead>
+  <tr>
+    <th>item_group_id</th>
+    <th>item_id</th>
+    <th>name</th>
+    <th>value</th>
+    <th>更新</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @item_group.items.each do |item| %>
+  <tr>
+    <td><%= item.item_group_id %></td>
+    <td><%= item.id %></td>
+    <td><%= item.name %></td>
+    <td><%= item.value %></td>
+    <td><%= link_to 'Edit', edit_item_group_item_path(item.item_group_id, item.id) %></td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
