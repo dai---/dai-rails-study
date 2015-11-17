@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :cos
+
   root 'item_groups#index'
 
   resources :item_groups do
